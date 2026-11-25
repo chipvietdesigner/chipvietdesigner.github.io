@@ -539,6 +539,15 @@ projList.addEventListener("pointerout", e => {
 });
 pp.addEventListener("pointerenter", () => { clearTimeout(ppCloseT); clearTimeout(ppOpenT); });
 pp.addEventListener("pointerleave", e => { const to = e.relatedTarget; if (to && to.closest?.(".card")) return; ppCloseT = setTimeout(ppClose, 450); });
+/* product / case links always open in a new tab */
+document.addEventListener("click", e => {
+  const a = e.target.closest && e.target.closest("a.pp-go, #projList .card a");
+  if (!a || e.defaultPrevented || e.button !== 0) return;
+  if (!a.classList.contains("pp-go") && !matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+  const href = a.href; if (!/^https:\/\//.test(href)) return;
+  const w = window.open(href, "_blank", "noopener,noreferrer");
+  if (w !== undefined) e.preventDefault();
+}, true);
 /* touch: a tap opens the panel; the panel's button goes to the product */
 projList.addEventListener("click", e => {
   if (finePointer.matches) return;
