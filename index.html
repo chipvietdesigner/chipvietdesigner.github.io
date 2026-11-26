@@ -746,18 +746,9 @@ layout();
   const draw = () => { c.style.transform = `translate3d(${x}px,${y}px,0)`; raf = 0; };
   const cursorLabel = el => {
     if (!el || !el.closest) return "";
-    const t = el.closest(".tools img"); if (t) return t.getAttribute("title") || t.alt || "";
-    const a = el.closest("a, button"); if (!a) return "";
-    const h = a.getAttribute("href") || "";
-    if (a.closest("#projList")) return "View project";
-    if (a.classList.contains("pp-go")) return (a.textContent || "").trim().replace(/\s+/g, " ") || "Open";
-    if (h.startsWith("mailto:")) return "Say hi";
-    if (h.includes("wa.me")) return "Message me";
-    if (a.classList.contains("menu-btn")) return document.body.classList.contains("menu-open") ? "Close" : "Menu";
-    if (/about\.html/.test(h)) return "Read more";
-    if (/index\.html/.test(h) || h.startsWith("#")) return "Go";
-    if (a.target === "_blank" || /^https?:/.test(h)) return "Open ↗";
-    return a.tagName === "BUTTON" ? "Click" : "Go";
+    const LABELS = [[".menu","Go"],[".hero","Welcome"],["#about","Nice to meet you"],["#contact","Say hi"],[".ab-hero","That's me"],[".ab-intro","Hello"],[".ab-philo","Mindset"],[".ab-career","My journey"]];
+    for (const [s, l] of LABELS) if (el.closest(s)) return l;
+    return "";
   };
   const tagEl = c.querySelector(".tag");
   const checkCat = () => {
