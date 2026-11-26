@@ -492,7 +492,7 @@ function ppFill(i){
   const p = WORKS[i]; if (!p) return; ppI = i;
   const live = typeof p.url === "string" && p.url.startsWith("https://") && !p.url.includes("behance.net"), logo = safeImg(p.logo);
   const vid = safeImg(p.video);
-  const shots = [...new Set([safeImg(p.cover), ...(p.images||[]).map(safeImg)].filter(Boolean))].slice(0,2);
+  const shots = [...new Set([safeImg(p.cover), ...(p.images||[]).map(safeImg)].filter(Boolean))].slice(0,3);
   const resp = String(p.responsibilities||"").split(/\n|;/).map(x=>x.trim()).filter(Boolean);
   const rows = [["Position",p.role],["Users",p.users],["Client",p.client],["Domain",p.domain],["Market",p.market],["Platform",p.platform]].filter(r=>r[1]);
   ppBox.innerHTML = `<div class="pp-info"><div class="pp-head"><h3>${logo ? `<img class="pp-logo" src="${esc(logo)}" alt="${esc(p.name)}">` : safeImg(p.icon) ? `<span class="pp-iconrow"><img class="pp-icon" src="${esc(safeImg(p.icon))}" alt="">${esc(p.name)}</span>` : esc(p.name)}</h3></div>
